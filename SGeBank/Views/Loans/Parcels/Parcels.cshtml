@@ -1,0 +1,106 @@
+﻿@*@model IEnumerable<SGeBank.Models.LoanMgr.Bean.Parcel>*@
+@model IEnumerable<SGeBank.Models.LoanMgr.Bean.vwParcel>
+
+@{
+    ViewBag.Title = "Parcels";
+    //string loanId = Model.Select(x => x.lId).ToString();
+}
+
+
+@using  (Html.BeginForm("ParcelPayment","Loans", FormMethod.Post))
+{
+<div class="container-fluid">
+    @*<h1 class="mt-4">Tables</h1>*@
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="@Url.Action("Index","Loans")">Dashboard</a></li>
+        <li class="breadcrumb-item active">Parcelas</li>
+    </ol>
+    <div class="card mb-4">
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Lista de parcelas
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" id="datatable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.pOrder)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.pDate)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.pValue)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.pStatus)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.pPenalty)
+                            </th>
+                            <th>Selecionar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr style="font-size:12px;">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pOrder)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pValue)
+                            </td>
+                            @*@Html.DisplayFor(modelItem => item.pStatus)*@
+                            @if (item.pStatus == 0)
+                            {
+                                <td>
+                                    Nao pago
+                                </td>
+
+                            }
+                            else
+                            {
+                            <td>Pago</td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pPenalty)
+                            </td>
+                            <td>
+                                @if (item.pStatus == 1)
+                                {
+                                    <input type="checkbox" id="order" name="order" value="@item.pOrder" checked disabled />
+                                }
+                                else
+                                {
+                                    <input type="checkbox" id="order" name="order" value="@item.pOrder" />
+                                }
+
+                                @*@Html.ActionLink("Edit", "Edit", new { id=item.lId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.lId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.lId })*@
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-outline-secondary">
+                <span class="fa fa-save"></span> Salvar
+            </button>
+        </div>
+    </div>
+</div>
+
+};
+

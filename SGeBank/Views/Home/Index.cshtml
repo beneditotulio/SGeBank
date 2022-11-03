@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>eBank</h1>
+    <p class="lead">
+        eBank e um sistema de informacao que vai ajudar a fazer crescer o teu negocio.
+        Nas tuas maos esta a melhor solucao para gestao de emprestimos do mercado.
+    </p>
+    <p><a href="@Url.Action("About","Home")" class="btn btn-primary btn-sm">Saiba mais &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Inicie a sua jornada</h2>
+        <p>
+            eBank, baseado num panorama poderoso e agil que te possibilita ter acesso a informacoes em tempo real, de modo a auxiliar
+            processos de tomada de decisao. Voce tem acesso total e completo a gestao de Clientes, Emprestimos...
+        </p>
+        <p><a class="btn-sm btn-primary" href="@Url.Action("About","Home")">Saiba Mais &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Gestao de Clientes</h2>
+        <p>Com esta funcionalidade torna-se cada vez mais facil criar, remover, e ver os detathes relacionados aos clientes.</p>
+        <p><a class="btn-sm btn-primary" href="@Url.Action("Index","Clients")">Saiba Mais &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Gestao de Emprestimos</h2>
+        <p>Podes facilmente monitorar os emprestimos efectuados, podendo assim apurar, quais clientes estao associados aos</p>
+        <p>Respectivos avalistas, mecanismos de busca que facilita o acesso aos registos.</p>
+        <p>Alertas de emprestimos por pagar.</p>
+        <p><a class="btn-sm btn-primary" href="@Url.Action("Index","Loans")">Saiba Mais &raquo;</a></p>
+    </div>
+</div>

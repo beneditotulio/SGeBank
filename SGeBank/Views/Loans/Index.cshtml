@@ -1,0 +1,207 @@
+﻿@*@model IEnumerable<SGeBank.Models.LoanMgr.Bean.Loan>*@
+@model IEnumerable<SGeBank.Models.LoanMgr.Bean.vwLoan>
+
+@{
+    ViewBag.Title = "Emprestimos";
+}
+<style>
+    table.dataTable tbody th, table.dataTable tbody td {
+        padding: 2px 10px;
+    }
+</style>
+
+    @*@Html.ActionLink("Criar Novo ", "Create")*@
+    <div class="container-fluid">
+        <h1 class="mt-4">Gestao de Emprestimos</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+            <li class="breadcrumb-item active">Emprestimos</li>
+        </ol>
+        @*<div class="card mb-4">
+            <div class="card-body">
+                DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
+                <a target="_blank" href="https://datatables.net/">official DataTables documentation</a>
+                .
+            </div>
+        </div>*@
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table mr-1"></i>
+                Lista de Emprestimos
+                <a class="btn btn-sm btn-outline-success" style="text-align:right"  href="@Url.Action("Create","Loans")">
+                    <span class="fa fa-plus-circle"></span> Novo
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="dataTable">
+                        <thead style="height:2px;">
+                            <tr style="font-size:12px;">
+                                <th>
+                                    @Html.DisplayNameFor(model => model.clientId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.workerId)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.loanValue)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.lparcelType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.lparcelNum)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.lTax)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.lPaymentValue)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.lParcelValue)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.lIncome)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.lDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.lBalance)
+                                </th>
+                                <th style="font-size:14px;">
+                                    @Html.DisplayNameFor(model => model.lExpiredDate)
+                                </th>
+                                @*<th>
+                    @Html.DisplayNameFor(model => model.lPaymentDate)
+                </th>*@
+                                @*<th></th>*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr style="font-size:12px;">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.clientId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.workerId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.loanValue)
+                                </td>
+                                @*<td>*@
+                                @*@Html.DisplayFor(modelItem => item.lparcelType)*@
+                                @if (item.lparcelType == "7")
+                                {
+                                    <td>Semanal</td>
+                                }
+                                else if (item.lparcelType == "15")
+                                {
+                                    <td>Quizenal</td>
+                                }
+                                else
+                                {
+                                    <td>Mensal</td>
+                                }
+                                @*</td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.lparcelNum)
+                                <a href="@Url.Action("GetParcelByLoanId", "Loans", new { loanId=item.lID })">Parcelas</a>
+                            </td>
+                            <td>
+                                @item.lTax.ToString().Replace(".00", "")%
+                            </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.lPaymentValue)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.lParcelValue)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.lIncome)
+                                </td>
+                                <td>
+                                    @item.lDate.ToString("dd-MM-yyyy")
+                                    @*@Html.DisplayFor(modelItem => item.lDate)*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.lBalance)
+                                </td>
+                                <td>
+                                    @item.lExpiredDate.ToString("dd-MM-yyyy")
+                                    @*@Html.DisplayFor(modelItem => item.lExpiredDate)*@
+                                </td>
+                                @*<td>
+            @Html.DisplayFor(modelItem => item.lPaymentDate)
+        </td>*@
+                                <!--<td>-->
+                                    @*@Html.ActionLink("Edit", "Edit", new { id=item.lID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.lID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.lID })|*@
+                                    @*<a href="@Url.Action("GetParcelByLoanId", "Loans", new { id=item.lID })">Parcelas</a>*@
+                                <!--</td>-->
+                            </tr>
+                            }
+                        </tbody>
+
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    @*<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Teste();
+
+            var table = $("#dataTable").DataTable({
+                paginate: true,
+                autoWidth: false,
+                select: true,
+                //Necessario desativar o scrollX e scrollY para acertar o header com o body.
+                //scrollResize: true,
+                //scrollY: 300,
+                "pagingType": "full_numbers",
+                "order": [[9, "desc"]],
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "All"]
+                ],
+                //"order": [[0, "desc"]],
+                responsive: true,
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Procurar ..."
+                }
+            });
+
+            function Teste() {
+                alert('Hello');
+            }
+
+            var table = $('#dataTable').DataTable();
+
+            $('#dataTable tbody').on('click', 'tr', function () {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                } else {
+                    //table.$('tr.selected').removeClass('selected');
+                    $('#dataTable tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+        });
+
+
+    </script>
+
+

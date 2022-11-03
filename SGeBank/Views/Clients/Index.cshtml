@@ -1,0 +1,159 @@
+﻿@model IEnumerable<SGeBank.Models.ClientMgr.Bean.vwClients>
+@{
+    ViewBag.Title = "Index";
+
+}
+
+<style>
+    table.dataTable thead th, table.dataTable tbody td {
+        padding: 2px 10px;
+    }
+</style>
+
+<div class="container-fluid">
+    @*<h1 class="mt-4">Lista de clientes</h1>*@
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+        <li class="breadcrumb-item active">Clientes</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body">
+            Com esta funcionalidade torna-se cada vez mais facil criar, remover, e ver os detathes relacionados aos clientes.
+            @*DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the*@
+            @*<a target="_blank" href="https://datatables.net/">official DataTables documentation</a>*@
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            Lista de Clientes
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="datatable">
+                    <thead>
+                        <tr style="font-size:12px;">
+                            <th>
+                                @Html.DisplayNameFor(model => model.clientName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.clientSurname)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cDoctype)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cDocnum)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cGender)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cPhone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cPhone2)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.cEmail)
+                            </th>
+                            <th>Accoes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr style="font-size:12px;">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.clientName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.clientSurname)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cDoctype)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cDocnum)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cGender)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cPhone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cPhone2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.cEmail)
+                                </td>
+                                <td>
+                                    @*@Html.ActionLink("Editar", "Edit", new { id=item.cid }) |*@
+                                    <a title="Editar" href="@Url.Action("Edit", "Clients", new { id=item.cid })"><i class="fa fa-edit"></i></a>
+                                    |
+                                    @*@Html.ActionLink("Detalhes", "Details", new { id = item.cid }) |*@
+                                    <a title="Detalhes" href="@Url.Action("Details", "Clients", new { id = item.cid })"><i class="fa fa-table"></i></a>
+                                    |
+                                    @*@Html.ActionLink("Eliminar", "Delete", new { id = item.cid })*@
+                                    <a title="Eliminar" href="@Url.Action("Delete", "Clients", new { id = item.cid })"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+
+
+
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a href="@Url.Action("Create","Clients")" class="btn btn-sm btn-outline-success">
+                @*<i class="fa fa-plus"></i>&nbsp;&nbsp;Novo*@
+                <span class="fa fa-plus-circle"></span>&nbsp;&nbsp;Novo
+            </a>
+            @*<button type="button" class="btn btn-success btn-sm" data-toggle="modal" id="btnAdd"
+                    data-target="#create">
+                <i class="fa fa-plus"></i>&nbsp;Adicionar
+            </button>*@
+            <span class="text-light" style="float: right">  | </span>
+            @Ajax.ActionLink("  Registar", "Create", "Clients",
+                null,
+                new AjaxOptions
+                {
+                    UpdateTargetId = "actionmodal",
+                    InsertionMode = InsertionMode.Replace,
+                    OnSuccess = "onCreate()"
+                }, new
+                {
+                    @class = "btn btn-outline-success btn-sm",
+                    @rel = "tooltip",
+                    @title = "Adicionar novo Cliente",
+                    @style = "float: right"
+                })
+            @*<p>
+                    @Html.ActionLink("Criar Novo", "Create")
+                </p>*@
+        </div>
+    </div>
+</div>
+
+<div id="actionmodal"></div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#datatable").DataTable();
+    });
+
+    function onCreate() {
+        $('#create').modal('show');
+    }
+</script>

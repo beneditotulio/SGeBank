@@ -1,0 +1,128 @@
+﻿@model SGeBank.Models.LoanMgr.Bean.Loan
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Loan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.clientId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clientId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.workerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.workerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.loanValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.loanValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lparcelType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lparcelType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lparcelNum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lparcelNum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lTax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lTax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lPaymentValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lPaymentValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lParcelValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lParcelValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lIncome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lIncome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lBalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lBalance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lExpiredDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lExpiredDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lPaymentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lPaymentDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,116 @@
+﻿@*@model IEnumerable<SGeBank.Models.WorkerMgr.Bean.Worker>*@
+@model IEnumerable<SGeBank.Models.WorkerMgr.Bean.vwWorkers>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista de funcionarios</h2>
+
+<p>
+    @Html.ActionLink("Criar Novo", "Create")
+</p>
+<table class="table" id="datatableRR">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.workerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.workerSurname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.wDoctype)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.wType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cDocnum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.wGender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.wAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.wPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.wPhone2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.wEmail)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.workerName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.workerSurname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wDoctype)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cDocnum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wGender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wPhone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wPhone2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.wEmail)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.wid }) |
+            @Html.ActionLink("Detailhes", "Details", new { id=item.wid }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.wid })
+        </td>
+    </tr>
+}
+
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Initialize DataTable
+        var table = $('#datatableRR').DataTable({
+            paginate: true,
+            autoWidth: false,
+            select: true,
+            //Necessario desativar o scrollX e scrollY para acertar o header com o body.
+            //scrollResize: true,
+            //scrollY: 300
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 20, 40, -1],
+                [10, 20, 40, "All"]
+            ],
+            responsive: true
+        });
+
+        table.row(':eq(0)', { page: 'current' }).select();
+        table.columns.adjust().draw();
+        table.wrap('<div class="dataTables_scroll" />')
+
+        //$('#datatableRR tbody').on('click', 'tr', function () {
+        //    $(this).toggleClass('selected');
+        //});
+        alert('Hello');
+    });
+</script>

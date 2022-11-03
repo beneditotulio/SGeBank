@@ -1,0 +1,219 @@
+﻿@using SGeBank.Models.ClientMgr.Bean
+@using SGeBank.Models.WorkerMgr.Bean
+@model SGeBank.Models.LoanMgr.Bean.Loan
+
+@{
+    ViewBag.Title = "Criar";
+    List<vwWorkers> workers = ViewData["WORKERS"] as List<vwWorkers>;
+    List<vwClients> clients = ViewData["CLIENTS"] as List<vwClients>;
+    List<SelectListItem> paymentTpe = ViewData["PAYMENT_TYPE"] as List<SelectListItem>;
+    List<SelectListItem> paymentTax = ViewData["PAYMENT_TAX"] as List<SelectListItem>;
+    var dateEn = DateTime.Now.Date.ToString("yyyy-MM-dd");
+}
+
+@*<h2>Criar</h2>*@
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="container-fluid">
+    @*<h4>Emprestimo</h4>
+    <hr />*@
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="hidden" id="parcel" name="parcel"/>
+    <input type="hidden" id="income" name="income"/>
+    <input type="hidden" id="payment" name="payment"/>
+
+<div class="row">
+    <div class="form-group col-md-5">
+        @Html.Label("Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.clientId, new SelectList(clients, "cid", "clientName"), "Escolha o Cliente....",
+                               new
+                               {
+                                   @class = "form-control",
+                                   @id = "clientId",
+                                   @name = "clientId",
+                                   style = "font-size:12px;",
+                                   @required = "required"
+                               })
+        </div>
+    </div>
+
+    <div class="form-group col-md-5">
+        @Html.Label("Gestor", htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.workerId, new SelectList(workers, "wid", "workerName"), "Escolha o Gestor....",
+                               new
+                               {
+                                   @class = "form-control",
+                                   @id = "workerId",
+                                   @name = "workerId",
+                                   style = "font-size:12px;",
+                                   @required = "required"
+                               })
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-md-5">
+        @Html.LabelFor(model => model.loanValue, htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.loanValue, new { htmlAttributes = new { @class = "form-control form-control-sm", type = "number", @required = "required"} })
+            @Html.ValidationMessageFor(model => model.loanValue, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group col-md-5">
+        @Html.Label("Regime de Pagamento", htmlAttributes: new { @class = "control-label col-md-6" })
+
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.lparcelType, new SelectList(paymentTpe, "Value", "Text"), "Escolha o regime....",
+                               new
+                               {
+                                   @class = "form-control",
+                                   @id = "lparcelType",
+                                   @name = "lparcelType",
+                                   style = "font-size:12px;",
+                                   @required = "required"
+                               })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-md-5">
+        @Html.LabelFor(model => model.lparcelNum, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.lparcelNum, new { htmlAttributes = new { @class = "form-control form-control-sm", @type = "number" } })
+            @Html.ValidationMessageFor(model => model.lparcelNum, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group col-md-5">
+        @Html.Label("Taxa de Pagamento", htmlAttributes: new { @class = "control-label col-md-5" })
+
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.lTax, new SelectList(paymentTax, "Value", "Text"), "Escolha a taxa....",
+                               new
+                               {
+                                   @class = "form-control",
+                                   @id = "lTax",
+                                   @name = "lTax",
+                                   style = "font-size:12px;",
+                                   onchange = "calculateIncome()",
+                                   @required = "required"
+                               })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-md-5">
+        @Html.LabelFor(model => model.lPaymentValue, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.lPaymentValue, new { htmlAttributes = new { @class = "form-control form-control-sm", disabled = true } })
+            @Html.ValidationMessageFor(model => model.lPaymentValue, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-5">
+        @Html.LabelFor(model => model.lParcelValue, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.lParcelValue, new { htmlAttributes = new { @class = "form-control form-control-sm", disabled = true } })
+            @Html.ValidationMessageFor(model => model.lParcelValue, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+    
+<div class="row">
+    <div class="form-group col-md-5">
+        @Html.LabelFor(model => model.lIncome, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.lIncome, new { htmlAttributes = new { @class = "form-control form-control-sm", @id = "lIncome", disabled = true } })
+            @Html.ValidationMessageFor(model => model.lIncome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group col-md-5">
+        @Html.LabelFor(model => model.lDate, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-10">
+            <input type="date" id="lDate" class="form-control form-control-sm" value="@dateEn" style="font-size:12px" disabled />
+            @Html.ValidationMessageFor(model => model.lDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+    
+<div class="row">
+    <div class="form-group col-md-5">
+        @Html.LabelFor(model => model.lBalance, htmlAttributes: new { @class = "control-label col-md-5" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.lBalance, new { htmlAttributes = new { @class = "form-control form-control-sm", value = 0, disabled = true } })
+            @Html.ValidationMessageFor(model => model.lBalance, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="form-group col-md-5">
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-outline-success">
+                <span class="fa fa-save"></span> Salvar
+            </button>
+        </div>
+    </div>
+    <div class="form-group col-md-5" style="text-align:right">
+        @Html.ActionLink("Voltar a lista", "Index")
+    </div>
+</div>
+
+
+</div>
+
+
+}
+
+
+
+@*@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
+<script type="text/javascript">
+//const { ligatures } = require("modernizr");
+
+    //LUCRO DO EMPRESTIMO
+    function calculateIncome() {
+        var tax = document.getElementById('lTax').value;
+        var loanValue = document.getElementById('loanValue').value;
+        //alert(tax * loanValue);
+        var total = parseFloat((tax/100) * loanValue);
+        document.getElementById('lIncome').value = total;
+        document.getElementById('income').value = total;
+        calculatePaymentValue();//VALOR A PAGAR
+    }
+
+    function calculatePaymentValue() {
+        var loanValue = document.getElementById('loanValue').value;
+        var lIncome = document.getElementById('lIncome').value;
+        var total = parseFloat(lIncome) + parseFloat(loanValue);
+        document.getElementById('lPaymentValue').value = total;
+        document.getElementById('payment').value = total;
+
+        calculateParcelValue(); // VALOR POR PARCELA
+
+    }
+
+    function calculateParcelValue() {
+        var lpaymentValue = document.getElementById('lPaymentValue').value;
+        var lparcelNum = document.getElementById('lparcelNum').value;
+        var total = parseFloat(lpaymentValue) / parseFloat(lparcelNum);
+        document.getElementById('lParcelValue').value = total;
+        document.getElementById('parcel').value = total;
+    }
+</script>

@@ -1,0 +1,90 @@
+﻿@model SGeBank.Models.ClientMgr.Bean.Client
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Client</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.clientName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clientName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.clientSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clientSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cDoctype)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cDoctype)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cDocnum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cDocnum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cGender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cGender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cPhone2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cPhone2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cEmail)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.cid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
