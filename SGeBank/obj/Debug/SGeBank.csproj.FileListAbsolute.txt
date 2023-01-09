@@ -176,3 +176,6 @@ C:\Users\tulio.benedito\Documents\GitHub\SGeBank\SGeBank\obj\Debug\SGeBank.cspro
 C:\Users\tulio.benedito\Documents\GitHub\SGeBank\SGeBank\obj\Debug\SGeBank.csproj.CopyComplete
 C:\Users\tulio.benedito\Documents\GitHub\SGeBank\SGeBank\obj\Debug\SGeBank.dll
 C:\Users\tulio.benedito\Documents\GitHub\SGeBank\SGeBank\obj\Debug\SGeBank.pdb
+C:\Users\tulio.benedito\Documents\GitHub\SGeBank\SGeBank\obj\Debug\SGeBank.Migrations.Loan.resources
+C:\Users\tulio.benedito\Documents\GitHub\SGeBank\SGeBank\obj\Debug\SGeBank.csproj.GenerateResource.cache
+C:\Users\tulio.benedito\Documents\GitHub\SGeBank\SGeBank\obj\Debug\SGeBank.Migrations.Initial.resources
